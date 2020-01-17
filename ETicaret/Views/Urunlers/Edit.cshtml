@@ -1,0 +1,91 @@
+﻿@model ETicaret.Models.Urunler
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
+
+<div class="jumbotron"><h2>Güncelleme</h2></div>
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Urunler</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.UrunId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UrunAdi, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UrunAdi, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UrunAdi, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RefKategoriId, "RefKategoriId", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("RefKategoriId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.RefKategoriId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UrunAciklamasi, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+
+            <!--ürün acıklaması için-->
+            @Html.TextAreaFor(model => model.UrunAciklamasi, new { @class = "form-control ckeditor" })
+
+            @Html.ValidationMessageFor(model => model.UrunAciklamasi, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UrunFiyat, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UrunFiyat, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UrunFiyat, "", new { @class = "text-danger" })
+        </div>
+    </div>
+   
+         <div class="form-group">
+       
+        </div>
+
+        <!--ürün resmi düzenlemek için-->
+         <div class="form-group">
+             <img src="/Resim/@(Model.UrunId).jpg" width="100"> <br />
+             <label class="control-label col-md-2">Ürün Resmi</label>
+
+             <div class="col-md-10">
+                 <input type="file" id="UrunResmi" name="UrunResmi" class="form-control" />
+
+             </div>
+         </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

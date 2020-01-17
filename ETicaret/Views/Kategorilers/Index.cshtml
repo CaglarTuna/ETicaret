@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ETicaret.Models.Kategoriler>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Kategoriler</h2>
+
+<p>
+    @Html.ActionLink("Yeni", "Create",null,new { @class = "btn btn-default" })
+</p>
+<table class="table table-hover table-reponsive">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.KategoriAdi)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.KategoriAdi)
+        </td>
+        <td>
+            @Html.ActionLink("Düzenle", "Edit", new { id=item.KategoriId },new { @class="btn btn-primary"}) 
+            @Html.ActionLink("Detay", "Details", new { id=item.KategoriId }, new { @class = "btn btn-success" }) 
+            @Html.ActionLink("Sil", "Delete", new { id=item.KategoriId }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

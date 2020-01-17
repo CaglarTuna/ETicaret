@@ -1,0 +1,58 @@
+﻿@model ETicaret.Models.Urunler
+@using ETicaret.Models
+
+
+@{
+    ViewBag.Title = Model.UrunAdi;
+    IEnumerable<Kategoriler> KategoriListesi = ViewBag.KategoriListesi as IEnumerable<Kategoriler>;
+
+}
+
+
+<div class="row">
+    <div class="col-md-3">
+        <h2>Kategoriler</h2>
+        <ul>
+            @foreach (var item in KategoriListesi)
+            {
+                <li>@Html.ActionLink(item.KategoriAdi, "Kategori", new { id = item.KategoriId })</li>
+            }
+        </ul>
+    </div>
+
+
+    <div class="col-md-9">
+
+        <h1><b><i>ÜRÜN ADI</i></b></h1>
+        <h5>@Model.UrunAdi</h5>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <img src="~/Resim/@(Model.UrunId).jpg" style="max-width:100%" />
+            </div>
+
+            <div class="col-md-6">
+              Ürün Fiyatı:
+                <span style="color:red;font-weight:bold;font-size:16px;">@Model.UrunFiyat TL
+                </span>
+                <form action="/Sepets/SepeteEkle">
+                    <input type="hidden" name="id" id="id" value="@Model.UrunId"/>
+                    <input type="number" name="adet" id="adet" value="1" min="1"
+                           style="width:50px; height:45px;"/>
+
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                        SepeteEkle
+
+                    </button>
+                </form>
+
+                <h1><b> Ürün Açıklaması</b></h1>
+                <p>@MvcHtmlString.Create(Model.UrunAciklamasi)</p>
+            </div>
+        </div>
+    </div>
+   
+
+</div>
